@@ -103,7 +103,7 @@ func UpdateUserController(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	user.ID = uint(id)
 
-	if err := DB.Delete(&user).Error; err != nil {
+	if err := DB.Updates(&user).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
