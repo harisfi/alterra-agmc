@@ -8,6 +8,8 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+var jToken string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2NjU5MzkyMjMsInVzZXJJZCI6MX0.I_qMVlgghBUW-tr7yqVumMMZDOSmjlLui2gYa2tASzw"
+
 func Login(c echo.Context) error {
 	user := models.User{}
 	c.Bind(&user)
