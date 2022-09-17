@@ -43,8 +43,7 @@ func TestLogin(t *testing.T) {
 	}
 
 	configs.InitDB()
-	configs.DB.Exec("TRUNCATE TABLE users;")
-	configs.DB.Exec("INSERT INTO users (name,email,password) VALUES ('a','a@b.com','12345678')")
+	configs.DB.Exec("INSERT INTO users (name,email,password) VALUES ('a','a@b.com','12345678');")
 
 	e := echo.New()
 

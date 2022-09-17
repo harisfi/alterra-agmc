@@ -104,6 +104,13 @@ func (s *UserTestSuite) TestGetUserById() {
 			userId:               "2",
 		},
 		{
+			name:                 "failed_get_user_by_id_false_id",
+			expectStatus:         http.StatusBadRequest,
+			expectBodyStartsWith: `{"message":"strconv`,
+			token:                jToken,
+			userId:               "a",
+		},
+		{
 			name:                 "failed_get_user_by_id_unauthorized",
 			expectStatus:         http.StatusUnauthorized,
 			expectBodyStartsWith: `{"message":"`,
@@ -115,7 +122,7 @@ func (s *UserTestSuite) TestGetUserById() {
 	for _, tc := range testCases {
 		s.Run(tc.name, func() {
 			if tc.withCreatedUser {
-				configs.DB.Exec("INSERT INTO users (name,email,password) VALUES ('a','b','c')")
+				configs.DB.Exec("INSERT INTO users (name,email,password) VALUES ('a','b','c');")
 			}
 
 			s.Echo.GET(path+":id", GetUserById)
@@ -235,6 +242,13 @@ func (s *UserTestSuite) TestUpdateUserById() {
 			userId:               "1",
 		},
 		{
+			name:                 "failed_update_user_by_id_false_id",
+			expectStatus:         http.StatusBadRequest,
+			expectBodyStartsWith: `{"message":"strconv`,
+			token:                jToken,
+			userId:               "a",
+		},
+		{
 			name:                 "failed_update_user_by_id_forbidden",
 			expectStatus:         http.StatusForbidden,
 			expectBodyStartsWith: `{"message":"Forbidden`,
@@ -246,7 +260,7 @@ func (s *UserTestSuite) TestUpdateUserById() {
 	for _, tc := range testCases {
 		s.Run(tc.name, func() {
 			if tc.withCreatedUser {
-				configs.DB.Exec("INSERT INTO users (name,email,password) VALUES ('a','b','c')")
+				configs.DB.Exec("INSERT INTO users (name,email,password) VALUES ('a','b','c');")
 			}
 
 			s.Echo.PUT(path+":id", UpdateUserById)
@@ -284,6 +298,13 @@ func (s *UserTestSuite) TestDeleteUserById() {
 			token:                jToken,
 			withCreatedUser:      true,
 			userId:               "1",
+		},
+		{
+			name:                 "failed_delete_user_by_id_false_id",
+			expectStatus:         http.StatusBadRequest,
+			expectBodyStartsWith: `{"message":"strconv`,
+			token:                jToken,
+			userId:               "a",
 		},
 		{
 			name:                 "failed_delete_user_by_id_forbidden",
