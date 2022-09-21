@@ -3,12 +3,14 @@ package migration
 import (
 	"log"
 
+	"github.com/harisfi/alterra-agmc/day6/database"
 	"github.com/harisfi/alterra-agmc/day6/internal/model"
-	"gorm.io/gorm"
 )
 
-func Migrate(db *gorm.DB) {
-	err := db.AutoMigrate(
+func Migrate() {
+	conn := database.GetConnection()
+
+	err := conn.AutoMigrate(
 		&model.User{},
 		&model.Book{},
 	)

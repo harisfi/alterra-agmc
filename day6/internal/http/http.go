@@ -8,6 +8,7 @@ import (
 )
 
 func NewHttp(e *echo.Echo, f *factory.Factory) {
-	book.NewHandler(f).Route(e.Group("/books"))
-	user.NewHandler(f).Route(e.Group("/users"))
+	v1 := e.Group("/v1")
+	book.NewHandler(f).Route(v1.Group("/books"))
+	user.NewHandler(f).Route(v1.Group("/users"))
 }
