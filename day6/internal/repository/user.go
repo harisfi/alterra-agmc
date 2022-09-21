@@ -11,7 +11,7 @@ type User interface {
 	CreateUser(c context.Context, user model.User) error
 	FindUser(c context.Context) ([]model.User, error)
 	FindUserByID(c context.Context, ID uint) (model.User, error)
-	UpdateUser(c context.Context, ID uint, user map[string]interface{}) error
+	UpdateUser(c context.Context, ID uint, user model.User) error
 	DeleteUser(c context.Context, ID uint) error
 }
 
@@ -41,7 +41,7 @@ func (conn *userConn) FindUserByID(c context.Context, ID uint) (model.User, erro
 	return user, err
 }
 
-func (conn *userConn) UpdateUser(c context.Context, ID uint, user map[string]interface{}) error {
+func (conn *userConn) UpdateUser(c context.Context, ID uint, user model.User) error {
 	err := conn.DB.WithContext(c).Where("id = ?", ID).Model(&model.User{}).Updates(user).Error
 	return err
 }
