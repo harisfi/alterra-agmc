@@ -1,11 +1,14 @@
 package user
 
-import "github.com/labstack/echo/v4"
+import (
+	"github.com/harisfi/alterra-agmc/day6/internal/middleware"
+	"github.com/labstack/echo/v4"
+)
 
 func (h *handler) Route(g *echo.Group) {
 	g.GET("", h.FindUser)
+	g.POST("", h.CreateUser, middleware.Authentication)
 	g.GET("/:id", h.FindUserById)
-	g.POST("/:id", h.CreateUser)
-	g.PUT("/:id", h.UpdateUser)
-	g.DELETE("/:id", h.DeleteUser)
+	g.PUT("/:id", h.UpdateUser, middleware.Authentication)
+	g.DELETE("/:id", h.DeleteUser, middleware.Authentication)
 }
