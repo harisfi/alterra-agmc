@@ -11,6 +11,7 @@ type User interface {
 	CreateUser(c context.Context, user model.User) error
 	FindUser(c context.Context) ([]model.User, error)
 	FindUserByID(c context.Context, ID uint) (model.User, error)
+	FindUserByEmail(c context.Context, email string) (model.User, error)
 	UpdateUser(c context.Context, ID uint, user model.User) error
 	DeleteUser(c context.Context, ID uint) error
 }
@@ -38,6 +39,13 @@ func (conn *userConn) FindUserByID(c context.Context, ID uint) (model.User, erro
 	var user model.User
 
 	err := conn.DB.WithContext(c).Model(&user).Where("id = ?", ID).First(&user).Error
+	return user, err
+}
+
+func (conn *userConn) FindUserByEmail(c context.Context, email string) (model.User, error) {
+	var user model.User
+
+	err := conn.DB.WithContext(c).Model(&user).Where("email = ?", email).First(&user).Error
 	return user, err
 }
 
