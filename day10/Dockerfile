@@ -3,8 +3,8 @@
 ############################
 # STEP 1 build executable binary
 ############################
-# golang alpine 1.13.5
-FROM golang@sha256:0991060a1447cf648bab7f6bb60335d1243930e38420bee8fec3db1267b84cfa AS builder
+# golang:1.18.6-alpine3.16
+FROM golang@sha256:0885b3ffdfbe8e6e8caf07e0b030091cbe1e297c7413ee664fe62d265423bade AS builder
 
 # Install git + SSL ca certificates.
 # Git is required for fetching the dependencies.
@@ -38,7 +38,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
 ############################
 # STEP 2 build a small image
 ############################
-FROM alpine@sha256:e7d88de73db3d3fd9b2d63aa7f447a10fd0220b7cbf39803c803f2af9ba256b3
+FROM alpine@sha256:0885b3ffdfbe8e6e8caf07e0b030091cbe1e297c7413ee664fe62d265423bade
 
 # Import from builder.
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
